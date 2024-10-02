@@ -1,5 +1,4 @@
 import { Address, Chain } from 'viem';
-import { txFilter_Any, txFilter_Standard } from '../verifier/utils/filter';
 
 type BaseCredConfig = {
   title: string;
@@ -14,18 +13,34 @@ type BaseCredConfig = {
   sellShareRoyalty: number;
   quantity: number;
 };
-export type TxFilterFunction = typeof txFilter_Any | typeof txFilter_Standard;
+
+export type TxFilterFunction = (
+  tx: GeneralTxItem,
+  contractAddresses: (Address | 'any')[],
+  methodIds: (string | 'any')[],
+) => boolean;
+
 export type SignatureCredConfig = BaseCredConfig & {
   verificationType: 'SIGNATURE';
-  apiChoice: 'etherscan';
+  apiChoice: 'etherscan' | 'contractCall' | 'neynar';
   apiKeyOrUrl: string;
-  contractAddress: Address | 'any';
-  methodId: string | 'any';
+  contractAddress: Address | Address[] | 'any';
+  methodId: string | string[] | 'any';
   startBlock: string;
   endBlock: string;
   filterFunction: TxFilterFunction;
   mintEligibility: (result: number) => boolean;
   transactionCountCondition: (txs: any[], address: string) => number;
+};
+
+export type ContractCallCredConfig = BaseCredConfig & {
+  verificationType: 'SIGNATURE';
+  apiChoice: 'contractCall';
+  apiKeyOrUrl: string;
+  contractAddress: Address;
+  functionName: string;
+  abi: any[];
+  contractCallCondition: (result: any) => boolean;
 };
 
 export type MerkleCredConfig = BaseCredConfig & {
@@ -34,7 +49,9 @@ export type MerkleCredConfig = BaseCredConfig & {
   fileName: string;
 };
 
-export type CredConfig = SignatureCredConfig | MerkleCredConfig;
+export type CredConfig = SignatureCredConfig | MerkleCredConfig | ContractCallCredConfig;
+export type CredResult = [boolean, string];
+
 export type EtherscanFilter = (a: EtherscanTxItem) => boolean;
 
 export type GeneralTxItem = {
@@ -83,10 +100,12 @@ export type BaseArtSetting = {
   tags: string[];
   externalURL: string;
   price: number;
-  maxSupply: number;
+  maxSupply?: number;
   soulbound: boolean;
   startDate: number;
   endDate: number;
+  artist: Address;
+  receiver: Address;
 };
 
 export type ImageArtSetting = BaseArtSetting & {

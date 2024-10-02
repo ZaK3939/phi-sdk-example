@@ -7,8 +7,9 @@ export async function createArtRequest(params: {
   description: string;
   executor: Address;
   artist: Address;
+  receiver: Address;
   price: number;
-  maxSupply: number;
+  maxSupply?: number;
   startDate: number;
   endDate: number;
   soulbound: boolean;
@@ -26,7 +27,7 @@ export async function createArtRequest(params: {
       executor: params.executor,
       title: params.title,
       artist: params.artist,
-      receiver: params.artist,
+      receiver: params.receiver,
       description: params.description,
       relatedLink: params.relatedLink,
       start: params.startDate,

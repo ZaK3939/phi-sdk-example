@@ -17,6 +17,8 @@ export const artSettings: { [key: number]: ArtSetting } = {
     endDate: twoDayFromNow,
     artType: 'IMAGE' as const,
     imagePath: path.join(process.cwd(), 'public/assets/images', 'base.png'),
+    artist: '0x5037e7747fAa78fc0ECF8DFC526DcD19f73076ce',
+    receiver: '0x5037e7747fAa78fc0ECF8DFC526DcD19f73076ce',
   },
   1: {
     title: 'BUILD Token Claim Art',
@@ -31,6 +33,8 @@ export const artSettings: { [key: number]: ArtSetting } = {
     endDate: oneYearFromNow,
     artType: 'IMAGE' as const,
     imagePath: path.join(process.cwd(), 'public/assets/images', 'build.png'),
+    artist: '0x5037e7747fAa78fc0ECF8DFC526DcD19f73076ce',
+    receiver: '0x5037e7747fAa78fc0ECF8DFC526DcD19f73076ce',
   },
   2: {
     title: 'Uniswap Swap Art',
@@ -39,13 +43,15 @@ export const artSettings: { [key: number]: ArtSetting } = {
     tags: ['DeFi', 'Swap', 'Uniswap', 'Base'],
     externalURL: 'https://app.uniswap.org/',
     price: 0,
-    maxSupply: 1000,
+    maxSupply: undefined, // undefined means no limit
     soulbound: false,
     startDate: Math.floor(Date.now() / 1000),
     endDate: oneYearFromNow,
     artType: 'API_ENDPOINT' as const,
     endpoint: 'https://phi-sdk.vercel.app/api/generate',
     previewInput: { address: '0x5037e7747fAa78fc0ECF8DFC526DcD19f73076ce', data: '500' }, // Need Credtype is ADVANCED
+    artist: '0x5037e7747fAa78fc0ECF8DFC526DcD19f73076ce',
+    receiver: '0x5037e7747fAa78fc0ECF8DFC526DcD19f73076ce',
   },
   3: {
     title: 'Highlight Art',
@@ -61,5 +67,7 @@ export const artSettings: { [key: number]: ArtSetting } = {
     artType: 'API_ENDPOINT' as const,
     endpoint: 'https://phi-sdk.vercel.app/api/gif',
     previewInput: { address: '0x5037e7747fAa78fc0ECF8DFC526DcD19f73076ce' }, // Need Credtype is BASIC
+    artist: '0x5037e7747fAa78fc0ECF8DFC526DcD19f73076ce',
+    receiver: '0x5037e7747fAa78fc0ECF8DFC526DcD19f73076ce',
   },
 };

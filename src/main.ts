@@ -1,31 +1,22 @@
-import { Address, bytesToHex, Hex } from 'viem';
+import { Hex } from 'viem';
 import { createCredRequest } from './cred/createCredRequest';
 import { createArtRequest } from './art/createArtRequest';
 import { ArtManager, CredManager, CredChainId, ArtChainId } from '@phi-hub/sdk';
 import { credConfig, credVerifyEndpoint } from './cred/credConfig';
-import { SIGNER_PRIVATE_KEY, CREATOR } from './config';
+import { executor, EXECUTOR_PRIVATE_KEY, verifier, VERIFIER_PRIVATE_KEY } from './config';
 import { artSettings } from './art/artConfig';
-import { privateKeyToAccount } from 'viem/accounts';
-
-const signerPrivateKey = SIGNER_PRIVATE_KEY as Hex;
-const account = privateKeyToAccount(signerPrivateKey);
-const signerAddress = account.address;
 
 // this script is an example of how to create cred and art using phi-sdk
 async function main() {
-  console.log(`Processing creator: ${CREATOR}`);
-  console.log(`PublicKey: ${signerAddress}`);
+  const privateKey = EXECUTOR_PRIVATE_KEY as Hex;
+  console.log(`Processing executor: ${executor}`);
 
   // please check these chainIds are supported by phi.
   const credChainId: CredChainId = 84532;
   const artChainId: ArtChainId = 84532;
 
-  if (!SIGNER_PRIVATE_KEY) {
-    throw new Error('SIGNER_PRIVATE_KEY must be set in .env file');
-  }
-
-  const credManager = new CredManager(signerPrivateKey, credChainId);
-  const artManager = new ArtManager(signerPrivateKey, artChainId);
+  const credManager = new CredManager(privateKey, credChainId);
+  const artManager = new ArtManager(privateKey, artChainId);
 
   // please change number of configs based on your requirement
   for (let configId = 0; configId <= 3; configId++) {
@@ -38,13 +29,14 @@ async function main() {
         continue;
       }
 
+      let credCreator = executor; // default to executor
       // Create Cred
       let credRequest = await createCredRequest(
         configId,
-        CREATOR,
-        CREATOR,
+        executor,
+        credCreator,
         config.network, // eligible network for your cred
-        config.verificationType === 'SIGNATURE' ? signerAddress : undefined,
+        config.verificationType === 'SIGNATURE' ? verifier : undefined,
         config.verificationType === 'SIGNATURE' ? credVerifyEndpoint[configId] : undefined,
       );
 
@@ -67,8 +59,9 @@ async function main() {
         description: artSetting.description,
         externalURL: artSetting.externalURL,
         network: artChainId,
-        executor: CREATOR,
-        artist: CREATOR,
+        executor,
+        artist: artSetting.artist,
+        receiver: artSetting.receiver,
         price: artSetting.price,
         maxSupply: artSetting.maxSupply,
         startDate: artSetting.startDate,

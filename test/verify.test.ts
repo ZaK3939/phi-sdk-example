@@ -1,5 +1,5 @@
 import { createPublicClient } from 'viem';
-import { check_cred } from '../src/verifier/utils/check';
+import { check_cred } from '../src/verifier/check';
 import { config } from 'dotenv';
 import { resolve } from 'path';
 

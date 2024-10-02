@@ -14,7 +14,7 @@ export const credConfig: { [key: number]: CredConfig } = {
     apiKeyOrUrl: process.env.BASESCAN_API_KEY ?? '',
     contractAddress: 'any',
     methodId: 'any',
-    network: 8453,
+    network: 8453, // eligible network for your cred
     startBlock: '0',
     endBlock: 'latest',
     filterFunction: txFilter_Any,
@@ -59,7 +59,8 @@ export const credConfig: { [key: number]: CredConfig } = {
     endBlock: 'latest',
     filterFunction: txFilter_Standard,
     mintEligibility: (result: number) => result > 0,
-    transactionCountCondition: (txs: any[]) => txs.length,
+    transactionCountCondition: (txs: any[], address: string) =>
+      txs.filter((tx) => tx.from.toLowerCase() === address.toLowerCase()).length,
     project: 'Uniswap',
     tags: ['DeFi', 'Swap'],
     relatedLinks: ['https://app.uniswap.org/'],
@@ -82,7 +83,8 @@ export const credConfig: { [key: number]: CredConfig } = {
     endBlock: 'latest',
     filterFunction: txFilter_Standard,
     mintEligibility: (result: number) => result > 0,
-    transactionCountCondition: (txs: any[]) => txs.length,
+    transactionCountCondition: (txs: any[], address: string) =>
+      txs.filter((tx) => tx.from.toLowerCase() === address.toLowerCase()).length,
     project: 'Highlight.xyz',
     tags: ['NFT', 'Minting'],
     relatedLinks: ['https://highlight.xyz/'],
