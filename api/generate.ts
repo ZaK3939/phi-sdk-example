@@ -25,7 +25,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const dataValue = parseInt(data as string, 10);
     const maxValue = 1000;
     const minCellSize = 0;
-    const maxCellSize = 20;
+    const maxCellSize = 10;
     const cellSize = Math.max(minCellSize, Math.min(maxCellSize, Math.round((dataValue / maxValue) * maxCellSize)));
 
     const width = 512;
