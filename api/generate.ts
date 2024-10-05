@@ -15,7 +15,7 @@ function convertToSymbol(brightness: number): string {
 }
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   try {
-    const { address, data } = req.query;
+    const { address, data = 0 } = req.query;
 
     if (!address || !data) {
       return new Response('Invalid address or value.', { status: 400 });
