@@ -37,8 +37,8 @@ async function main() {
   const privateKey = EXECUTOR_PRIVATE_KEY as Hex;
   console.log(`Processing executor: ${executor}`);
 
-  const credChainId: CredChainId = 84532;
-  const artChainId: ArtChainId = 84532;
+  const credChainId: CredChainId = 8453;
+  const artChainId: ArtChainId = 8453;
 
   const credManager = new CredManager(privateKey, credChainId);
   const artManager = new ArtManager(privateKey, artChainId);
