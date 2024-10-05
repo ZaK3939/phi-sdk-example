@@ -28,4 +28,4 @@ export const verifier: Address = verifier_account.address;
 export const executor_account = privateKeyToAccount(EXECUTOR_PRIVATE_KEY);
 export const executor: Address = executor_account.address;
 
-export const ENDPOINT = 'base-autumn.vercel.app';
+export const BASE_ENDPOINT = getEnvVar('BASE_ENDPOINT');

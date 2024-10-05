@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import { txFilter_Any, txFilter_Standard } from '../verifier/utils/filter';
 import { CredConfig } from '../utils/types';
+import { BASE_ENDPOINT } from '../config';
 
 // The credConfig object holds the configurations for various credentials.
 // Each credential is represented as an object with a unique ID.
@@ -95,9 +96,6 @@ export const credConfig: { [key: number]: CredConfig } = {
   },
 };
 
-export const credVerifyEndpoint: { [key: number]: string | undefined } = {
-  0: 'https://phi-sdk.vercel.app/api/verify/0',
-  1: undefined,
-  2: 'https://phi-sdk.vercel.app/api/verify/2',
-  3: 'https://phi-sdk.vercel.app/api/verify/3',
-};
+export const credVerifyEndpoint: { [key: number]: string } = Object.fromEntries(
+  Object.keys(credConfig).map((key) => [key, `https://${BASE_ENDPOINT}/api/verify/${key}`]),
+);
