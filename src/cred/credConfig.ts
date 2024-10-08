@@ -35,7 +35,6 @@ export const credConfig: { [key: number]: CredConfig } = {
     description: 'Claim your BUILD tokens from the first airdrop campaign on Base',
     credType: 'BASIC',
     verificationType: 'MERKLE',
-    contractAddress: '0x3c281a39944a2319aa653d81cfd93ca10983d234', // BUILD token contract
     network: 8453,
     project: 'BUILD',
     tags: ['Airdrop', 'Social'],
@@ -92,6 +91,21 @@ export const credConfig: { [key: number]: CredConfig } = {
     verificationSource: 'https://github.com/ZaK3939/phi-sdk-example',
     buyShareRoyalty: 100,
     sellShareRoyalty: 100,
+    quantity: 1,
+  },
+  4: {
+    title: 'Claim For Test',
+    description: 'Claim For Test',
+    credType: 'BASIC',
+    verificationType: 'MERKLE',
+    network: 8453,
+    project: 'BUILD',
+    tags: [''],
+    relatedLinks: ['https://base.terminal.phiprotocol.xyz/'],
+    fileName: 'test2.csv', // File containing the list of addresses
+    verificationSource: 'https://test',
+    buyShareRoyalty: 120,
+    sellShareRoyalty: 50,
     quantity: 1,
   },
 };

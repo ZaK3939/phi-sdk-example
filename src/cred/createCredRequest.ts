@@ -33,8 +33,8 @@ export async function createCredRequest(
     tags: config.tags,
     relatedLinks: config.relatedLinks,
     quantity: BigInt(config.quantity),
-    buyShareRoyalty: 100,
-    sellShareRoyalty: 100,
+    buyShareRoyalty: config.buyShareRoyalty,
+    sellShareRoyalty: config.sellShareRoyalty,
   };
 
   let request: MerkleCredRequest | SignatureCredRequest;
@@ -49,7 +49,7 @@ export async function createCredRequest(
       },
     } as SignatureCredRequest;
   } else if (config.verificationType === 'MERKLE') {
-    const addressListPath = path.join(process.cwd(), 'src/cred/csv', `test.csv`);
+    const addressListPath = path.join(process.cwd(), 'src/cred/csv', config.fileName);
     const addressList = await readCSVFile(addressListPath);
 
     request = {

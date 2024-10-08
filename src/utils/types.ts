@@ -45,7 +45,6 @@ export type ContractCallCredConfig = BaseCredConfig & {
 
 export type MerkleCredConfig = BaseCredConfig & {
   verificationType: 'MERKLE';
-  contractAddress: Address;
   fileName: string;
 };
 
